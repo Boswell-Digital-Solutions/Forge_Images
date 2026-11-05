@@ -2,6 +2,10 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Repo Identity
+
+- Default branch: master
+
 ## Project Overview
 
 ForgeImages is a template-driven image asset pipeline for the Forge ecosystem. It provides deterministic, auditable image asset generation: AI agents may generate and select candidates, but all validation and compilation must pass through ForgeImages' template-defined rules — no bypasses. The repo has two parts: a Rust core engine/CLI (`forgeimages-core`) and a Python FastAPI bridge + agent skill (`forgeagents-forgeimages`).
