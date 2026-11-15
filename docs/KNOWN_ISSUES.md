@@ -59,3 +59,19 @@ repo owner, would close this gap properly.
 
 **Scope:** Open (the governance/scope/change-control chapter gap only; the duplication and dead-artifact
 problem above is fixed).
+
+## KI-IMA-20261115-001 — the tech-stack chapter omits the SVG rasterizer that the handover chapter and the source show
+
+**Status:** OPEN. Recorded 2026-11-15. Source: BDS-ORG-ARCH-AUDIT-2026-11.
+
+**What is wrong.** The chapters of `doc/system/` disagree about what the engine contains. `doc/system/03-tech-stack.md:L5-L19` lists ten Rust dependencies and none of them renders an image. `doc/system/11-handover.md:L65` says the engine has deterministic SVG-to-raster rendering (`render.rs`: resvg and tiny_skia, PNG, JPG and ICO export). `doc/system/01-overview-philosophy.md:L68-L82` still counts seven Rust source files and one template.
+
+**Evidence (Observed (source)).** `Forge_Images@8b79b67e68:forgeimages-core/Cargo.toml:L27-L28` declares `image = { version = "0.25", ... }` and `resvg = "0.44"`. The file `forgeimages-core/src/render.rs` exists. `forgeimages-core/Cargo.toml` does not declare `tiny-skia` directly, so the handover text "resvg + tiny_skia" names a transitive dependency. The `forgeimages` repository records the same difference from its side: `forgeimages@c96e433d1e:doc/system/14-future-work-tally.md:L10` says `Forge_Images` has a `resvg` renderer that `forgeimages` does not have. The handover chapter and the source agree. The tech-stack and overview chapters are stale.
+
+**Root cause.** Not determined. The rasterizer was added after the tech-stack and overview chapters were written.
+
+**Fix.** None proposed. Recommendation (audit): add `image` and `resvg` to `03-tech-stack.md`, update the file and template counts in `01-overview-philosophy.md`, then run `bash doc/system/BUILD.sh`.
+
+**Note on activity.** The ecosystem map describes this repository as last pushed on 2026-06-21, and the audit read it as dormant. The latest commit in the audit clone is the documentation merge of 2026-11-14 (PR #4). Whether the code is still maintained is not determined here.
+
+**Scope:** Open until the three chapters agree with the source.
